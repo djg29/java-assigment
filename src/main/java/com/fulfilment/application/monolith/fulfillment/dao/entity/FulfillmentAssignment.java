@@ -30,7 +30,7 @@ public class FulfillmentAssignment {
         var fl = new FulfillmentAssignment();
         fl.productName = fulfillment.productName;
         fl.storeName = fulfillment.storeName;
-        fl.warehouseBusinessUnitCode = fulfillment.businessUntiCode;
+        fl.warehouseBusinessUnitCode = fulfillment.businessUnitCode;
         return fl;
     }
 

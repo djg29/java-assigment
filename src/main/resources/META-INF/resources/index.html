@@ -38,6 +38,7 @@
         };
 
         $scope.replacementForm = {};
+        $scope.fulfillmentForm = {};
 
         //Now load the data from server
         _refreshPageData();
@@ -105,6 +106,26 @@
               data.stock = $scope.form.stock;
               data.capacity = $scope.form.capacity;
               data.location = $scope.form.location;
+
+              $http({
+                  method: method,
+                  url: url,
+                  data: angular.toJson(data),
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              }).then(_success, _error);
+          };
+
+          $scope.createFulfillment = function () {
+              var method = "";
+              var url = "";
+              var data = {};
+              method = "POST";
+              url = '/fulfillment';
+              data.businessUntiCode = $scope.fulfillmentForm.businessUntiCode;
+              data.storeName = $scope.fulfillmentForm.storeName;
+              data.productName = $scope.fulfillmentForm.productName;
 
               $http({
                   method: method,
@@ -236,6 +257,20 @@
         </div>
         <div class="row">
             <div class="col-6"><input type="text" placeholder="stock" ng-model="form.stock" size="60"/></div>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+
+    <h3>Create a Fulfillment</h3>
+    <form ng-submit="createFulfillment()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="businessUntiCode" ng-model="fulfillmentForm.businessUntiCode" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="storeName" ng-model="fulfillmentForm.storeName" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="productName" ng-model="fulfillmentForm.productName" size="60"/></div>
         </div>
         <input type="submit" value="Save"/>
     </form>

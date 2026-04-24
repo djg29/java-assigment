@@ -19,7 +19,7 @@ class FulfillmentAssignmentTest {
 
         // Then
         assertNotNull(fulfillment);
-        assertEquals(assignment.warehouseBusinessUnitCode, fulfillment.businessUntiCode);
+        assertEquals(assignment.warehouseBusinessUnitCode, fulfillment.businessUnitCode);
         assertEquals(assignment.productName, fulfillment.productName);
         assertEquals(assignment.storeName, fulfillment.storeName);
     }
@@ -35,7 +35,7 @@ class FulfillmentAssignmentTest {
 
         // Then
         assertNotNull(fulfillment);
-        assertNull(fulfillment.businessUntiCode);
+        assertNull(fulfillment.businessUnitCode);
         assertNull(fulfillment.productName);
         assertNull(fulfillment.storeName);
     }
@@ -50,7 +50,7 @@ class FulfillmentAssignmentTest {
 
         // Then
         assertNotNull(assignment);
-        assertEquals(fulfillment.businessUntiCode, assignment.warehouseBusinessUnitCode);
+        assertEquals(fulfillment.businessUnitCode, assignment.warehouseBusinessUnitCode);
         assertEquals(fulfillment.productName, assignment.productName);
         assertEquals(fulfillment.storeName, assignment.storeName);
     }
@@ -80,7 +80,7 @@ class FulfillmentAssignmentTest {
         Fulfillment result = assignment.toFulfillment();
 
         // Then
-        assertEquals(original.businessUntiCode, result.businessUntiCode);
+        assertEquals(original.businessUnitCode, result.businessUnitCode);
         assertEquals(original.productName, result.productName);
         assertEquals(original.storeName, result.storeName);
     }

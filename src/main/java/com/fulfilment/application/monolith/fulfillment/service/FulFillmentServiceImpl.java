@@ -6,19 +6,24 @@ import com.fulfilment.application.monolith.fulfillment.model.Fulfillment;
 import java.util.List;
 import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class FulFillmentServiceImpl implements FulFillmentService {
+
+    private static final Logger LOGGER = Logger.getLogger(FulFillmentService.class.getName());
 
     @Inject FulfillmentRepo repo;
 
     @Override
     public List<Fulfillment> listAllFulfillments() {
+        LOGGER.infof("Fetch a list of all fulfillments");
         return repo.listAll().stream().map(FulfillmentAssignment::toFulfillment).toList();
     }
 
     @Override
     public List<Fulfillment> findByWarehouseProductAndStore(String businessUnitCode, String storeName, String productName) {
+        LOGGER.infof("Fetch a list of all fulfillments by businessUnitCode= %s storeName= %s productName = %productName", businessUnitCode, storeName, productName);
         return repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName(businessUnitCode, storeName, productName).stream().map(FulfillmentAssignment::toFulfillment).toList();
     }
 
@@ -39,7 +44,8 @@ public class FulFillmentServiceImpl implements FulFillmentService {
 
     @Override
     public Fulfillment createFulfillment(Fulfillment fl) {
-         if (repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName(fl.businessUntiCode, fl.storeName, fl.productName).size() != 0) {
+        LOGGER.infof("Create fulfillment with %s", fl);
+        if (repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName(fl.businessUnitCode, fl.storeName, fl.productName).size() != 0) {
              throw new RuntimeException("Assignment already exists");
          }
 
