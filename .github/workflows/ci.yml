@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      checks: write
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Checkout code
@@ -23,6 +24,12 @@ jobs:
 
       - name: Build and Test
         run: mvn -B package
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: "target/surefire-reports/*.xml"
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
