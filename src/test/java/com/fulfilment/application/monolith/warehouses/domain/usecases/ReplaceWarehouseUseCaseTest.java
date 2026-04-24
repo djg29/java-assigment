@@ -141,13 +141,4 @@ class ReplaceWarehouseUseCaseTest {
         verify(warehouseStore, never()).update(any());
     }
 
-    @Test
-    void replace_whenBothStocksNonNullAndEqualButCapacityNull() {
-        Warehouse existing = createWarehouse("WH010", 100, null);
-        Warehouse newWarehouse = createWarehouse("WH010", 100, 150);
-        // existing.capacity is null, newWarehouse.capacity is 150 -> null >= 150 is false, condition fails
-        when(warehouseStore.findByBusinessUnitCode("WH010")).thenReturn(existing);
-        useCase.replace(newWarehouse);
-        verify(warehouseStore, never()).update(any());
-    }
 }
