@@ -1,17 +1,27 @@
 package com.fulfilment.application.monolith.fulfillment.model;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Fulfillment {
 
-    public String businessUntiCode;
+    @NotBlank(message = "businessunitcode cannot be empty")
+    public String businessUnitCode;
+
+    @NotBlank(message = "productName cannot be empty")
     public String productName;
+
+    @NotBlank(message = "storeName cannot be empty")
     public String storeName;
 
     public String getBusinessUntiCode() {
-        return businessUntiCode;
+        return businessUnitCode;
     }
 
-    public void setBusinessUntiCode(String businessUntiCode) {
-        this.businessUntiCode = businessUntiCode;
+    public void setBusinessUntiCode(String businessUnitCode) {
+        this.businessUnitCode = businessUnitCode;
     }
 
     public String getProductName() {
@@ -30,9 +40,18 @@ public class Fulfillment {
         this.storeName = storeName;
     }
 
-    public Fulfillment(String businessUntiCode, String productName, String storeName) {
-        this.businessUntiCode = businessUntiCode;
+    public Fulfillment(String businessUnitCode, String productName, String storeName) {
+        this.businessUnitCode = businessUnitCode;
         this.productName = productName;
         this.storeName = storeName;
+    }
+
+    @Override
+    public String toString() {
+        return "Fulfillment{" +
+                "businessUnitCode='" + businessUnitCode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", storeName='" + storeName + '\'' +
+                '}';
     }
 }

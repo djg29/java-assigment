@@ -14,7 +14,7 @@ class FulfillmentTest {
 
         Fulfillment fulfillment = new Fulfillment(businessCode, product, store);
 
-        assertEquals(businessCode, fulfillment.businessUntiCode);
+        assertEquals(businessCode, fulfillment.businessUnitCode);
         assertEquals(product, fulfillment.productName);
         assertEquals(store, fulfillment.storeName);
 
@@ -27,7 +27,7 @@ class FulfillmentTest {
     @Test
     void constructor_withNullValues_shouldAllowNull() {
         Fulfillment fulfillment = new Fulfillment(null, null, null);
-        assertNull(fulfillment.businessUntiCode);
+        assertNull(fulfillment.businessUnitCode);
         assertNull(fulfillment.productName);
         assertNull(fulfillment.storeName);
     }
@@ -62,6 +62,6 @@ class FulfillmentTest {
     void directFieldAccess_shouldReflectSetterChanges() {
         Fulfillment fulfillment = new Fulfillment("WH-001", "Mouse", "Utrecht");
         fulfillment.setBusinessUntiCode("WH-999");
-        assertEquals("WH-999", fulfillment.businessUntiCode);
+        assertEquals("WH-999", fulfillment.businessUnitCode);
     }
 }

@@ -47,10 +47,10 @@ class FulFillmentServiceImplTest {
         List<Fulfillment> result = service.listAllFulfillments();
 
         assertEquals(2, result.size());
-        assertEquals("WH1", result.get(0).businessUntiCode);
+        assertEquals("WH1", result.get(0).businessUnitCode);
         assertEquals("ProductX", result.get(0).productName);
         assertEquals("StoreA", result.get(0).storeName);
-        assertEquals("WH2", result.get(1).businessUntiCode);
+        assertEquals("WH2", result.get(1).businessUnitCode);
         verify(repo, times(1)).listAll();
     }
 
@@ -70,7 +70,7 @@ class FulFillmentServiceImplTest {
         List<Fulfillment> result = service.findByWarehouseProductAndStore("WH1", "StoreA", "ProductX");
 
         assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUntiCode);
+        assertEquals("WH1", result.get(0).businessUnitCode);
         verify(repo, times(1)).findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX");
     }
 
@@ -82,7 +82,7 @@ class FulFillmentServiceImplTest {
         List<Fulfillment> result = service.findByWarehouse("WH1");
 
         assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUntiCode);
+        assertEquals("WH1", result.get(0).businessUnitCode);
     }
 
     @Test
