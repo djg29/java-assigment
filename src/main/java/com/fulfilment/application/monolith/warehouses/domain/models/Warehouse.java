@@ -64,4 +64,5 @@ public class Warehouse {
   public void setArchivedAt(LocalDateTime archivedAt) {
     this.archivedAt = archivedAt;
   }
+
 }
