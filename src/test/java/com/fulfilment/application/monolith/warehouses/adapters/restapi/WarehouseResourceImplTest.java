@@ -5,11 +5,11 @@ import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.ArchiveWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.CreateWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.ReplaceWarehouseOperation;
+import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -21,19 +21,19 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class WarehouseResourceImplTest {
 
-    @Mock
+    @InjectMock
     private WarehouseRepository warehouseRepository;
 
-    @Mock
+    @InjectMock
     private ArchiveWarehouseOperation archiveWarehouseOperation;
 
-    @Mock
+    @InjectMock
     private CreateWarehouseOperation createWarehouseOperation;
 
-    @Mock
+    @InjectMock
     private ReplaceWarehouseOperation replaceWarehouseOperation;
 
-    @InjectMocks
+    @Inject
     private WarehouseResourceImpl resource;
 
     // Helper to create a domain Warehouse
