@@ -5,6 +5,7 @@ import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.ArchiveWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.CreateWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.input.ReplaceWarehouseOperation;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@QuarkusTest
 @ExtendWith(MockitoExtension.class)
 class WarehouseResourceImplTest {
 

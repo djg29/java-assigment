@@ -2,16 +2,17 @@ package com.fulfilment.application.monolith.warehouses.domain.usecases;
 
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.output.WarehouseStore;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@QuarkusTest
 @ExtendWith(MockitoExtension.class)
 class ReplaceWarehouseUseCaseTest {
 

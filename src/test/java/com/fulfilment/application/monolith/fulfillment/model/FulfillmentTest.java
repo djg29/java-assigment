@@ -1,9 +1,10 @@
 package com.fulfilment.application.monolith.fulfillment.model;
 
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+@QuarkusTest
 class FulfillmentTest {
 
     @Test

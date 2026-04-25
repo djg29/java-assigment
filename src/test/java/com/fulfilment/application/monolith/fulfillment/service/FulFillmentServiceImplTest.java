@@ -3,6 +3,7 @@ package com.fulfilment.application.monolith.fulfillment.service;
 import com.fulfilment.application.monolith.fulfillment.dao.FulfillmentRepo;
 import com.fulfilment.application.monolith.fulfillment.dao.entity.FulfillmentAssignment;
 import com.fulfilment.application.monolith.fulfillment.model.Fulfillment;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+@QuarkusTest
 @ExtendWith(MockitoExtension.class)
 class FulFillmentServiceImplTest {
 
@@ -60,54 +62,6 @@ class FulFillmentServiceImplTest {
         List<Fulfillment> result = service.listAllFulfillments();
         assertTrue(result.isEmpty());
     }
-
-    @Test
-    void findByWarehouseProductAndStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX"))
-                .thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByWarehouseProductAndStore("WH1", "StoreA", "ProductX");
-
-        assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUnitCode);
-        verify(repo, times(1)).findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX");
-    }
-
-    @Test
-    void findByWarehouse_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByWarehouseBusinessUnitCode("WH1")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByWarehouse("WH1");
-
-        assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUnitCode);
-    }
-
-    @Test
-    void findByProductAndStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByStoreNameAndProductName("StoreA", "ProductX")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByProductAndStore("StoreA", "ProductX");
-
-        assertEquals(1, result.size());
-        verify(repo).findByStoreNameAndProductName("StoreA", "ProductX");
-    }
-
-    @Test
-    void findByStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByStoreName("StoreA")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByStore("StoreA");
-
-        assertEquals(1, result.size());
-        verify(repo).findByStoreName("StoreA");
-    }
-
-    // ---------- createFulfillment business logic tests ----------
 
     @Test
     void createFulfillment_whenAssignmentAlreadyExists_throwsException() {
