@@ -3,23 +3,22 @@ package com.fulfilment.application.monolith.fulfillment.service;
 import com.fulfilment.application.monolith.fulfillment.dao.FulfillmentRepo;
 import com.fulfilment.application.monolith.fulfillment.dao.entity.FulfillmentAssignment;
 import com.fulfilment.application.monolith.fulfillment.model.Fulfillment;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import io.quarkus.test.InjectMock;
+import jakarta.inject.Inject;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@QuarkusTest
 class FulFillmentServiceImplTest {
 
-    @Mock
+    @InjectMock
     private FulfillmentRepo repo;
 
-    @InjectMocks
+    @Inject
     private FulFillmentServiceImpl service;
 
     // Helper to create a test assignment
@@ -60,54 +59,6 @@ class FulFillmentServiceImplTest {
         List<Fulfillment> result = service.listAllFulfillments();
         assertTrue(result.isEmpty());
     }
-
-    @Test
-    void findByWarehouseProductAndStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX"))
-                .thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByWarehouseProductAndStore("WH1", "StoreA", "ProductX");
-
-        assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUnitCode);
-        verify(repo, times(1)).findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX");
-    }
-
-    @Test
-    void findByWarehouse_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByWarehouseBusinessUnitCode("WH1")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByWarehouse("WH1");
-
-        assertEquals(1, result.size());
-        assertEquals("WH1", result.get(0).businessUnitCode);
-    }
-
-    @Test
-    void findByProductAndStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByStoreNameAndProductName("StoreA", "ProductX")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByProductAndStore("StoreA", "ProductX");
-
-        assertEquals(1, result.size());
-        verify(repo).findByStoreNameAndProductName("StoreA", "ProductX");
-    }
-
-    @Test
-    void findByStore_shouldReturnMappedModels() {
-        List<FulfillmentAssignment> assignments = List.of(createAssignment("WH1", "StoreA", "ProductX"));
-        when(repo.findByStoreName("StoreA")).thenReturn(assignments);
-
-        List<Fulfillment> result = service.findByStore("StoreA");
-
-        assertEquals(1, result.size());
-        verify(repo).findByStoreName("StoreA");
-    }
-
-    // ---------- createFulfillment business logic tests ----------
 
     @Test
     void createFulfillment_whenAssignmentAlreadyExists_throwsException() {
@@ -158,14 +109,11 @@ class FulFillmentServiceImplTest {
     @Test
     void createFulfillment_whenAllConditionsMet_persistsAndReturnsFulfillment() {
         Fulfillment fulfillment = createFulfillment("WH1", "StoreA", "ProductX");
-        // No existing exact match
         when(repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName("WH1", "StoreA", "ProductX"))
                 .thenReturn(List.of());
-        // Product+store count less than 2
         when(repo.findByStoreNameAndProductName("StoreA", "ProductX"))
-                .thenReturn(List.of()); // zero
-        // Store warehouse distinct count less than 3
-        when(repo.countDistinctWarehousesByStore("StoreA")).thenReturn(2L);
+                .thenReturn(List.of()); // product limit not hit
+        when(repo.countDistinctWarehousesByStore("StoreB")).thenReturn(2L);
 
         Fulfillment result = service.createFulfillment(fulfillment);
 

@@ -10,11 +10,4 @@ public interface FulFillmentService {
 
     Fulfillment createFulfillment(Fulfillment fl);
 
-    List<Fulfillment> findByWarehouseProductAndStore(String businessUnitCode, String storeName, String productName);
-
-    List<Fulfillment> findByWarehouse(String businessUnitCode);
-
-    List<Fulfillment> findByProductAndStore(String storeName, String productName);
-
-    List<Fulfillment> findByStore(String storeName);
 }

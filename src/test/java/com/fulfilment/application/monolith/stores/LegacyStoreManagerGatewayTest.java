@@ -1,5 +1,6 @@
 package com.fulfilment.application.monolith.stores;
 
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@QuarkusTest
 class LegacyStoreManagerGatewayTest {
 
     private final LegacyStoreManagerGateway gateway = new LegacyStoreManagerGateway();

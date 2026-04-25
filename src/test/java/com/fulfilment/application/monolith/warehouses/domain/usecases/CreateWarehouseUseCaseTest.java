@@ -2,18 +2,21 @@ package com.fulfilment.application.monolith.warehouses.domain.usecases;
 
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.output.WarehouseStore;
+import io.quarkus.test.InjectMock;
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.mockito.Mockito.*;
 
+@QuarkusTest
 @ExtendWith(MockitoExtension.class)
 class CreateWarehouseUseCaseTest {
 
-    @Mock
+    @InjectMock
     private WarehouseStore warehouseStore;
 
     private CreateWarehouseUseCase useCase;

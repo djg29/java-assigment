@@ -1,9 +1,11 @@
 package com.fulfilment.application.monolith.fulfillment.dao.entity;
 
 import com.fulfilment.application.monolith.fulfillment.model.Fulfillment;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+@QuarkusTest
 class FulfillmentAssignmentTest {
 
     @Test
