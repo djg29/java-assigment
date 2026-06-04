@@ -5,6 +5,7 @@ import com.fulfilment.application.monolith.fulfillment.dao.entity.FulfillmentAss
 import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Parameters;
+import jakarta.validation.constraints.NotBlank;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -43,4 +44,8 @@ public class FulfillmentRepo implements PanacheRepository<FulfillmentAssignment>
                 Parameters.with("storeName", storeName)).project(Long.class).firstResult();
     }
 
+    public long countDistinctProductsByWarehouse(String businessUnitCode) {
+        return getEntityManager().createQuery("SELECT COUNT(DISTINCT productName) FROM FulfillmentAssignment WHERE warehouseBusinessUnitCode = :warehouseBusinessUnitCode", Long.class)
+                .setParameter("warehouseBusinessUnitCode", businessUnitCode).getSingleResult();
+    }
 }
