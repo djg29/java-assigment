@@ -6,7 +6,7 @@
 **Task**: Discuss the challenges in accurately tracking and allocating costs in a fulfillment environment. Think about what are important considerations for this, what are previous experiences that you have you could related to this problem and elaborate some questions and considerations
 
 **Questions you may have and considerations:**
-[ fill here your answer ]
+I do not have previous experience in modelling operational cost model of warehouses/stores. I would look for context from PO.
 
 ## Scenario 2: Cost Optimization Strategies
 **Situation**: The company wants to identify and implement cost optimization strategies for its fulfillment operations. The goal is to reduce overall costs without compromising service quality.
@@ -14,7 +14,7 @@
 **Task**: Discuss potential cost optimization strategies for fulfillment operations and expected outcomes from that. How would you identify, prioritize and implement these strategies?
 
 **Questions you may have and considerations:**
-[ fill here your answer ]
+Same here, no prior business experience dealing with modelling expenses. if this relates to technical implementations like say reducing cloud costs the there are several strategies we can follow. Audit can give a clear picture of where expenses are being incurred and hence opportunities for savings.
 
 ## Scenario 3: Integration with Financial Systems
 **Situation**: The Cost Control Tool needs to integrate with existing financial systems to ensure accurate and timely cost data. The integration should support real-time data synchronization and reporting.
@@ -22,7 +22,7 @@
 **Task**: Discuss the importance of integrating the Cost Control Tool with financial systems. What benefits the company would have from that and how would you ensure seamless integration and data synchronization?
 
 **Questions you may have and considerations:**
-[ fill here your answer ]
+What type of financial systems are we talking about, what type of integration do they allow, latency, error handling, idempotency. 
 
 ## Scenario 4: Budgeting and Forecasting
 **Situation**: The company needs to develop budgeting and forecasting capabilities for its fulfillment operations. The goal is to predict future costs and allocate resources effectively.
