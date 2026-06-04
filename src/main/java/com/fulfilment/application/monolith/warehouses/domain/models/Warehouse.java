@@ -1,6 +1,7 @@
 package com.fulfilment.application.monolith.warehouses.domain.models;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +13,10 @@ public class Warehouse {
   @NotBlank(message = "location cannot be empty")
   public String location;
 
-  @NotBlank(message = "capacity cannot be empty")
+  @NotNull(message = "capacity is required")
   public Integer capacity;
 
-  @NotBlank(message = "stock cannot be empty")
+  @NotNull(message = "stock is required")
   public Integer stock;
 
   public LocalDateTime createdAt;
