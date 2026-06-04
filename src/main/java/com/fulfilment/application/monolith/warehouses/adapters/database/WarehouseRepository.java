@@ -44,4 +44,10 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
     var entity = find("businessUnitCode", buCode).firstResultOptional().map(DbWarehouse::toWarehouse);
     return entity.orElse(null);
   }
+
+  @Override
+  public List<Warehouse> findByLocation(String location) {
+    var numberOfWarehouses = find("location", location).stream().map(DbWarehouse::toWarehouse).toList();
+    return numberOfWarehouses;
+  }
 }

@@ -37,7 +37,7 @@ class ReplaceWarehouseUseCaseTest {
     @Test
     void replace_shouldUpdateWhenStockEqualAndCapacitySufficient() {
         Warehouse existing = createWarehouse("WH001", 100, 200);
-        Warehouse newWarehouse = createWarehouse("WH001", 100, 150);
+        Warehouse newWarehouse = createWarehouse("WH001", 100, 250);
 
         when(warehouseStore.findByBusinessUnitCode("WH001")).thenReturn(existing);
         useCase.replace(newWarehouse);
@@ -59,7 +59,7 @@ class ReplaceWarehouseUseCaseTest {
     @Test
     void replace_shouldUpdateWhenCapacityGreaterThanNewWarehouseCapacity() {
         Warehouse existing = createWarehouse("WH003", 75, 300);
-        Warehouse newWarehouse = createWarehouse("WH003", 75, 200);
+        Warehouse newWarehouse = createWarehouse("WH003", 75, 350);
 
         when(warehouseStore.findByBusinessUnitCode("WH003")).thenReturn(existing);
         useCase.replace(newWarehouse);
@@ -73,7 +73,7 @@ class ReplaceWarehouseUseCaseTest {
     @Test
     void replace_shouldNotUpdateWhenStockDiffers() {
         Warehouse existing = createWarehouse("WH004", 100, 200);
-        Warehouse newWarehouse = createWarehouse("WH004", 99, 150); // stock differs
+        Warehouse newWarehouse = createWarehouse("WH004", 99, 200); // stock differs
 
         when(warehouseStore.findByBusinessUnitCode("WH004")).thenReturn(existing);
         useCase.replace(newWarehouse);
@@ -83,8 +83,8 @@ class ReplaceWarehouseUseCaseTest {
 
     @Test
     void replace_shouldNotUpdateWhenCapacityInsufficient() {
-        Warehouse existing = createWarehouse("WH005", 100, 150);
-        Warehouse newWarehouse = createWarehouse("WH005", 100, 200); // capacity greater than existing
+        Warehouse existing = createWarehouse("WH005", 100, 200);
+        Warehouse newWarehouse = createWarehouse("WH005", 100, 150); // capacity greater than existing
 
         when(warehouseStore.findByBusinessUnitCode("WH005")).thenReturn(existing);
         useCase.replace(newWarehouse);
@@ -94,8 +94,8 @@ class ReplaceWarehouseUseCaseTest {
 
     @Test
     void replace_shouldNotUpdateWhenBothStockDiffersAndCapacityInsufficient() {
-        Warehouse existing = createWarehouse("WH006", 100, 150);
-        Warehouse newWarehouse = createWarehouse("WH006", 99, 200); // stock differs & capacity insufficient
+        Warehouse existing = createWarehouse("WH006", 100, 200);
+        Warehouse newWarehouse = createWarehouse("WH006", 99, 150); // stock differs & capacity insufficient
 
         when(warehouseStore.findByBusinessUnitCode("WH006")).thenReturn(existing);
         useCase.replace(newWarehouse);

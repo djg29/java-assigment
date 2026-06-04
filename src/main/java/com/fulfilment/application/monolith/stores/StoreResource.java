@@ -100,7 +100,21 @@ public class StoreResource {
     entity.name = updatedStore.name;
     entity.quantityProductsInStock = updatedStore.quantityProductsInStock;
 
-    legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+      reg.registerInterposedSynchronization(new Synchronization() {
+          @Override
+          public void beforeCompletion() {}
+
+          @Override
+          public void afterCompletion(int status) {
+              if (status == Status.STATUS_COMMITTED) {
+                  legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+              } else {
+                  // log or throw exception
+              }
+          }
+      });
+
+
 
     return entity;
   }
@@ -119,15 +133,29 @@ public class StoreResource {
       throw new WebApplicationException("Store with id of " + id + " does not exist.", 404);
     }
 
-    if (entity.name != null) {
+    if (updatedStore.name != null) {
       entity.name = updatedStore.name;
     }
 
-    if (entity.quantityProductsInStock != 0) {
+//    if (updatedStore.quantityProductsInStock != 0) {
       entity.quantityProductsInStock = updatedStore.quantityProductsInStock;
-    }
+//    }
 
-    legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+    entity.persist();
+
+      reg.registerInterposedSynchronization(new Synchronization() {
+          @Override
+          public void beforeCompletion() {}
+
+          @Override
+          public void afterCompletion(int status) {
+              if (status == Status.STATUS_COMMITTED) {
+                  legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+              } else {
+                  // log or throw exception
+              }
+          }
+      });
 
     return entity;
   }

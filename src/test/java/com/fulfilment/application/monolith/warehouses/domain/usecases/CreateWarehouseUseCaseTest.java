@@ -1,5 +1,6 @@
 package com.fulfilment.application.monolith.warehouses.domain.usecases;
 
+import com.fulfilment.application.monolith.location.LocationGateway;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.output.WarehouseStore;
 import io.quarkus.test.InjectMock;
@@ -18,12 +19,14 @@ class CreateWarehouseUseCaseTest {
 
     @InjectMock
     private WarehouseStore warehouseStore;
+    @InjectMock
+    private LocationGateway loc;
 
     private CreateWarehouseUseCase useCase;
 
     @BeforeEach
     void setUp() {
-        useCase = new CreateWarehouseUseCase(warehouseStore);
+        useCase = new CreateWarehouseUseCase(warehouseStore, loc);
     }
 
     /**

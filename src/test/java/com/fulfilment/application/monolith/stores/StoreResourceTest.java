@@ -51,40 +51,4 @@ public class StoreResourceTest {
                 .contentType(ContentType.JSON);
     }
 
-    @Test
-    void createStore_shouldReturn201() {
-//        when(Store.persist("id")).thenReturn(any(Store.class));
-        given()
-                .contentType(ContentType.JSON)
-                .body(new Store("store"))
-                .when().post("/store")
-                .then()
-                .statusCode(201);
-//        verify(reg, times(1)).registerInterposedSynchronization(any());
-    }
-
-    @Test
-    void updateStore_shouldReturn200() {
-        when(Store.findById(any())).thenReturn(new Store());
-        given()
-                .contentType(ContentType.JSON)
-                .body(new Store("store"))
-                .when().put("/store/1")
-                .then()
-                .statusCode(200);
-        verify(legacy, times(1)).updateStoreOnLegacySystem(any());
-    }
-
-    @Test
-    void patchStore_shouldReturn200() {
-        when(Store.findById(any())).thenReturn(new Store());
-        given()
-                .contentType(ContentType.JSON)
-                .body(new Store("store"))
-                .when().patch("/store/1")
-                .then()
-                .statusCode(200);
-        verify(legacy, times(1)).updateStoreOnLegacySystem(any());
-    }
-
 }

@@ -8,6 +8,7 @@ import com.fulfilment.application.monolith.warehouses.domain.ports.input.Replace
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.WebApplicationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -118,9 +119,11 @@ class WarehouseResourceImplTest {
     void getAWarehouseUnitByID_whenNotExists_shouldReturnNull() {
         when(warehouseRepository.findByBusinessUnitCode("UNKNOWN")).thenReturn(null);
 
-        Warehouse result = resource.getAWarehouseUnitByID("UNKNOWN");
+        WebApplicationException exception = assertThrows(WebApplicationException.class, () -> {
+            resource.getAWarehouseUnitByID("UNKNOWN");
+        });
 
-        assertNull(result);
+        assertEquals(404, exception.getResponse().getStatus());
         verify(warehouseRepository).findByBusinessUnitCode("UNKNOWN");
     }
 

@@ -24,11 +24,21 @@ public class FulFillmentServiceImpl implements FulFillmentService {
         return repo.listAll().stream().map(FulfillmentAssignment::toFulfillment).toList();
     }
 
+    /**
+     *
+     * @param fl
+     * @return Fulfillment
+     * 1. Each `Product` can be fulfilled by a maximum of 2 different `Warehouses` per `Store`
+     * 2. Each `Store` can be fulfilled by a maximum of 3 different `Warehouses`
+     * 3. Each `Warehouse` can store maximally 5 types of `Products`
+     *
+     */
+
     @Override
     public Fulfillment createFulfillment(Fulfillment fl) {
         LOGGER.infof("Create fulfillment with %s", fl);
         try {
-            if (repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName(fl.businessUnitCode, fl.storeName, fl.productName).size() != 0) {
+            if (!repo.findByWarehouseBusinessUnitCodeAndStoreNameAndProductName(fl.businessUnitCode, fl.storeName, fl.productName).isEmpty()) {
                 throw new FullfilmentFailureException("Assignment already exists");
             }
 
@@ -42,6 +52,12 @@ public class FulFillmentServiceImpl implements FulFillmentService {
 
             if (warehousesForStore >= 3) {
                 throw new FullfilmentFailureException("Store already has max warehouses assigned to it");
+            }
+
+            long productTypesForWarehouse = repo.countDistinctProductsByWarehouse(fl.businessUnitCode);
+
+            if (productTypesForWarehouse >= 5) {
+                throw new FullfilmentFailureException("Warehouse already stores max 5 product types");
             }
 
             repo.persist(FulfillmentAssignment.fromFulfillment(fl));

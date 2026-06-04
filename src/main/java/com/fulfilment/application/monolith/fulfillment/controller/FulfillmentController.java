@@ -58,10 +58,10 @@ public class FulfillmentController {
             LOGGER.error("Failed to handle request", exception);
 
             int code = 500;
-            if (exception instanceof FullfilmentFailureException) {
-                code = 400;
-            } else if (exception instanceof WebApplicationException) {
+            if (exception instanceof WebApplicationException) {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
+            } else if (exception instanceof FullfilmentFailureException) {
+                code = 400;
             }
 
             ObjectNode exceptionJson = objectMapper.createObjectNode();
